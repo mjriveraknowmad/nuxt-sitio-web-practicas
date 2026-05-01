@@ -2,6 +2,8 @@
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+Following F.Herrera's Nuxt course: https://knowmadmood.udemy.com/course/nuxt-web-progresivo
+
 ## Setup
 
 Make sure to install dependencies:
