@@ -28,7 +28,7 @@ export const usePaginatedProducts = async () => {
   );
 
   return {
-    data,
+    data, // Reactiva
 
     products: computed(() => data.value?.products || []),
     totalPages: computed(() => data.value?.totalPages || 0),
@@ -36,6 +36,7 @@ export const usePaginatedProducts = async () => {
     perPage: computed(() => data.value?.perPage || 10),
     total: computed(() => data.value?.total || 0),
 
+    // Actions
     error,
     status,
     execute,

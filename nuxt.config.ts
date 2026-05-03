@@ -23,7 +23,8 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/image',
     '@nuxt/ui',
-    "@prisma/nuxt"
+    "@prisma/nuxt",
+    'nuxt-auth-utils',
   ],
 
   // SPA - Single Page Application
