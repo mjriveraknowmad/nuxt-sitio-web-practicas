@@ -1,23 +1,23 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
+  // output   = "../app/generated/prisma"
 }
- 
+
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model SiteReview {
-  id          Int      @id @default(autoincrement())
-  name        String
-  subtitle    String
-  description String
+  id           Int      @id @default(autoincrement())
+  name         String
+  subtitle     String
+  description  String
   profileImage String
-  createdAt   DateTime @default(now())
+  createdAt    DateTime @default(now())
 }
 
 model Product {
@@ -32,7 +32,6 @@ model Product {
   updatedAt   DateTime @updatedAt
 }
 
-
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
@@ -42,5 +41,3 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
-
