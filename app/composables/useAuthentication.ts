@@ -40,7 +40,7 @@ export const useAuthentication = () => {
 
     // Getters
     isLoggedIn: loggedIn,
-    isAdmin: computed(() =>  (user.value as any)?.roles.includes('admin')),
+    isAdmin: computed(() => user.value?.roles.includes('admin')),
 
     // Methods, Acciones
     fetch,
