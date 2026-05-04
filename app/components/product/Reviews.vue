@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  const testimonials = ref([
+const testimonials = ref([
   {
     user: {
       stars: 5,

@@ -10,15 +10,17 @@ const route = useRoute();
 const currentPage = computed(() => {
   return parseInt(route.query.page as string) || 1;
 });
-
-function to(page: number) {
-  return {
+// const perPage = computed(() => {
+//   return parseInt(route.query.perPage as string) || 10;
+// });
+const handlePageUpdate = (page: number) => {
+  router.push({
     query: {
-       ...route.query,
+      ...route.query,
       page: page.toString(),
-    }
-  }
-}
+    },
+  });
+};
 </script>
 
 <template>
@@ -29,7 +31,7 @@ function to(page: number) {
       :per-page="perPage"
       :items-per-page="perPage"
       show-edges
-      :to="to"
+      @update:page="handlePageUpdate"
     />
     <!-- @update:model-value="router.push({ query: { page: $event.toString() } })" -->
   </div>

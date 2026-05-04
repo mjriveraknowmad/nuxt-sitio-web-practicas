@@ -8,35 +8,31 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "seed:original": "ts-node seed/seed-database.ts",
     "prisma:generate": "npx prisma generate",
-    "seed": "npm run prisma:generate && npx tsx seed/seed-database.ts",
-    "migrate:site-review-profile-image": "npx prisma migrate dev --name site-review-profile-image"
+    "seed": "npm run prisma:generate && npx tsx seed/seed-database.ts"
   },
   "dependencies": {
     "@nuxt/eslint": "1.9.0",
     "@nuxt/fonts": "0.11.4",
     "@nuxt/icon": "2.0.0",
     "@nuxt/image": "1.11.0",
-    "@nuxt/ui": "^4.1.0",
-    "@prisma/adapter-pg": "^7.8.0",
-    "@prisma/client": "^7.8.0",
-    "@prisma/nuxt": "^0.3.0",
-    "bcryptjs": "^3.0.3",
-    "dotenv": "^17.4.2",
-    "eslint": "^9.37.0",
-    "nuxt": "^4.1.3",
-    "nuxt-auth-utils": "^0.5.29",
-    "pg": "^8.20.0",
-    "tailwindcss": "^4.1.16",
-    "vue": "^3.5.22",
-    "vue-router": "^4.5.1",
-    "zod": "^4.1.12"
+    "@nuxt/ui": "4.1.0",
+    "@prisma/client": "6.19.0",
+    "@prisma/nuxt": "0.3.0",
+    "bcryptjs": "3.0.3",
+    "eslint": "9.37.0",
+    "nuxt": "4.1.3",
+    "nuxt-auth-utils": "0.5.25",
+    "tailwindcss": "4.1.16",
+    "vue": "3.5.22",
+    "vue-router": "4.5.1",
+    "zod": "4.1.12"
   },
   "devDependencies": {
-    "@types/node": "^25.6.0",
-    "@types/pg": "^8.20.0",
-    "prisma": "^7.8.0",
-    "ts-node": "^10.9.2",
+    "@types/node": "24.10.0",
+    "prisma": "^6.19.0",
+    "ts-node": "10.9.2",
     "tsx": "^4.21.0"
   }
 }
