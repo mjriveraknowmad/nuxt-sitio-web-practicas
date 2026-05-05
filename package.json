@@ -8,6 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "migrate:example": "npx prisma migrate dev --name una-forma-de-indentificar-la-migracion",
     "seed:original": "ts-node seed/seed-database.ts",
     "prisma:generate": "npx prisma generate",
     "seed": "npm run prisma:generate && npx tsx seed/seed-database.ts"

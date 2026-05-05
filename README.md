@@ -23,4 +23,4 @@ Para añadir una entrada de API, por ejemplo para productos:
 
 ## Créditos
 
-Código basado en el curso de Fernando Herrera  https://knowmadmood.udemy.com/course/nuxt-web-progresivo
+Código basado en el curso de Fernando Herrera [Nuxt: El marco de trabajo web progresivo (Nuxt 4+)](https://www.udemy.com/course/nuxt-web-progresivo/)  

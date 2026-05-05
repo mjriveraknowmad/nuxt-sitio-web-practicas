@@ -30,6 +30,27 @@ model Product {
   tags        String[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  // Relación con ProductReview
+  productReviews ProductReview[]
+}
+
+model ProductReview {
+  id        Int    @id @default(autoincrement())
+  rating    Int
+  review    String
+  name      String
+  userTitle String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relaciones
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
 }
 
 model User {
@@ -40,4 +61,7 @@ model User {
   roles     String[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
+  // Relaciones
+  productReviews ProductReview[]
 }
