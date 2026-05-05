@@ -5,6 +5,9 @@ const router = useRouter();
 const route = useRoute();
 const toast = useToast();
 
+const filesToUpload = ref<File[]>([]);
+const filesToUploadPreviews = ref<string[]>([]);
+
 const messageQuery = route.query.message as string;
 if (messageQuery) {
   toast.add({
@@ -80,11 +83,15 @@ const handleSubmit = async () => {
     return;
   }
   if (!newProduct.value) return;
+  isSubmitting.value = true;
 
   newProduct.value!.tags = `${newProduct.value!.tags}`.split(',');
 
-  console.log(newProduct.value);
-  const product = await createOrUpdate(newProduct.value);
+  const product = await createOrUpdate(
+    newProduct.value,
+    filesToUpload.value.length > 0 ? filesToUpload.value : undefined
+  );
+  newProduct.value = product;
 
   if (isCreating.value) {
     // navigateTo
@@ -94,16 +101,42 @@ const handleSubmit = async () => {
     return;
   }
 
-  // TODO: limpiar los archivos seleccionados
+  // limpiar los archivos seleccionados
+  filesToUpload.value = [];
+  filesToUploadPreviews.value = [];
 
   toast.add({
     title: 'Producto actualizado correctamente',
     description: `El producto ${product.name}, ha sido actualizado correctamente`,
   });
+  isSubmitting.value = false;
 };
 
 const handleCancel = () => {
   navigateTo('/dashboard/products');
+};
+
+const handleFilesChanged = (event: Event) => {
+  const files = (event.target as HTMLInputElement).files;
+  console.log("files", files, event.target);
+  if (!files) return;
+
+  filesToUpload.value = Array.from(files);
+
+  // Crear una vista previa del archivo a subir
+  filesToUploadPreviews.value = filesToUpload.value.map((file) => {
+    return URL.createObjectURL(file);
+  });
+
+  console.log("filesToUpload.value", filesToUpload.value);
+};
+
+const removeFilePreview = (index: number) => {
+  filesToUploadPreviews.value = filesToUploadPreviews.value.filter(
+    (file, i) => i !== index
+  );
+
+  filesToUpload.value = filesToUpload.value.filter((file, i) => i !== index);
 };
 
 watch(
@@ -298,7 +331,7 @@ watch(
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <button
                   v-for="(image, index) in newProduct.images"
-                  :key="image + index"
+                  :key="image"
                   type="button"
                   class="overflow-hidden rounded-md border-2 transition"
                   :class="
@@ -317,6 +350,31 @@ watch(
                 </button>
               </div>
             </div>
+
+            <!-- Files to upload preview -->
+            <ClientOnly>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div
+                  v-for="(image, index) in filesToUploadPreviews"
+                  :key="image"
+                >
+                  <div class="overflow-hidden rounded-lg relative">
+                    <img
+                      :src="image"
+                      :alt="`Previsualización ${index + 1}`"
+                      class="h-20 w-full object-cover"
+                    />
+                    <UButton
+                      color="error"
+                      icon="i-lucide-x"
+                      class="absolute top-2 right-2"
+                      @click="removeFilePreview(index)"
+                    />
+                  </div>
+                </div>
+              </div>
+            </ClientOnly>
+
             <!-- <textarea
               id="product-images"
               v-model="newProduct.images"
@@ -330,7 +388,8 @@ watch(
               placeholder="https://ejemplo.com/imagen-1.jpg"
             /> -->
             <UInput
-              v-if="!isCreating"
+              v-if="!isCreating && !isSubmitting"
+              @change="handleFilesChanged($event)"
               type="file"
               multiple
               id="product-images"
