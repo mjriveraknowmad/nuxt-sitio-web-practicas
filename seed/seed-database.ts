@@ -8,10 +8,10 @@ import bcrypt from 'bcryptjs';
 
 async function seedDatabase() {
   // Purgar base de datos
+  await prisma.productReview.deleteMany();
   await prisma.siteReview.deleteMany();
   await prisma.product.deleteMany();
   await prisma.user.deleteMany();
-  await prisma.productReview.deleteMany();
 
   // Hash de contraseñas
   const usersWithHashedPassword = users.map((user) => ({
